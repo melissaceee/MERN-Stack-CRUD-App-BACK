@@ -63,5 +63,21 @@ exports.updateItem = async (req, res) => {
     }
 };
 
+exports.deleteItem = async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const deletedItem = await menuItem.findByIdAndDelete(itemId);
+
+        if (!deletedItem) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+
+        res.status(200).json({ message: 'Item deleted successfully', item: deletedItem });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 
 
