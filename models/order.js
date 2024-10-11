@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const menuItem = require('./menuItem');
 
 const orderSchema = new mongoose.Schema({
     userid: {
@@ -8,7 +9,7 @@ const orderSchema = new mongoose.Schema({
     },
     items: [
         {
-            item: { 
+            menuItem: { 
                 type: mongoose.Schema.Types.ObjectId, 
                 ref: 'menuItem', 
                 required: true

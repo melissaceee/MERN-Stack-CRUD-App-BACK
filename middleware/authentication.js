@@ -24,4 +24,11 @@ const isRegistered = (req, res, next) => {
     return res.status(403).json({ message: 'Guests are not allowed to perform this action' });
 };
 
-module.exports = { isAuthenticated, isRegistered };
+const isAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        return next();
+    }
+    return res.status(403).json({ message: 'Only admins can perform this action' });
+};
+
+module.exports = { isAuthenticated, isRegistered, isAdmin };

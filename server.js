@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const menuRoutes = require('./routes/menuRoutes');
 const userRoutes = require('./routes/userRoutes');
-
+const orderRoutes = require('./routes/orderRoutes');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 // Routes go here
 app.use('/menu', menuRoutes);
 app.use('/user', userRoutes);
+app.use('/cart', orderRoutes)
 
 
 const PORT = process.env.PORT || 5001;
