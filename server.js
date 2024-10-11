@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const router = express.Router();
+const cors = require('cors');
+
 const menuRoutes = require('./routes/menuRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -13,6 +15,8 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -25,6 +29,7 @@ app.use('/menu', menuRoutes);
 app.use('/user', userRoutes);
 
 
-app.listen(3000, () => {
-  console.log('The express app is ready!');
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+  console.log(`The express app is running on port ${PORT}`);
 });
