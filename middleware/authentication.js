@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 
 const isAuthenticated = (req, res, next) => {
     const token = req.header('Authorization');
-
     if (!token) {
-        req.user = { role: 'guest' };
-        return next();
+        return res.status(401).json({ message: 'No token provided' });
     }
 
+    const tokenWithoutBearer = token.replace('Bearer ', '');
+
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(tokenWithoutBearer, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
